@@ -66,7 +66,10 @@ class CommandBucket
 public:
 
 	CommandBucket(size_t num_packets);
+	CommandBucket(CommandBucket<Key> && other);
 	~CommandBucket();
+
+	CommandBucket& operator=(CommandBucket<Key> other);
 
 	void Submit();
 	void SubmitPacket(const CommandPacket packet);

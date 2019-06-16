@@ -19,11 +19,23 @@ CommandBucket<Key>::CommandBucket(size_t num_packets)
 }
 
 template <typename Key>
+CommandBucket<Key>::CommandBucket(CommandBucket<Key> && other)
+{
+	swap(*this, other);
+}
+
+template <typename Key>
 CommandBucket<Key>::~CommandBucket()
 {
 	delete[] m_sorted_indices;
 	delete[] m_keys;
 	delete[] m_packets;
+}
+
+template <typename Key>
+CommandBucket<Key>& CommandBucket<Key>::operator=(CommandBucket<Key> other)
+{
+	swap(*this, other);
 }
 
 template <typename Key>
