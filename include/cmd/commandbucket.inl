@@ -90,6 +90,8 @@ template <typename Key>
 template <typename U>
 U* CommandBucket<Key>::AddCommand(Key key, size_t auxMemorySize)
 {
+	assert(m_size < m_capacity);
+
 	CommandPacket packet = commandPacket::Create<U>(auxMemorySize);
 
 	// store key and pointer to the data
