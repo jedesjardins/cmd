@@ -92,7 +92,7 @@ U * CommandBucket<Key>::AddCommand(Key key, size_t auxMemorySize)
 {
     assert(m_size < m_capacity);
 
-    if (m_size < m_capacity)
+    if (m_size >= m_capacity)
     {
         return nullptr;
     }
