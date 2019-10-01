@@ -25,6 +25,8 @@ CommandBucket<Key>::CommandBucket(CommandBucket<Key> && other)
 template <typename Key>
 CommandBucket<Key>::~CommandBucket()
 {
+	Clear();
+
     delete[] m_sorted_indices;
     delete[] m_keys;
     delete[] m_packets;
