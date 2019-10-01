@@ -90,6 +90,11 @@ U * CommandBucket<Key>::AddCommand(Key key, size_t auxMemorySize)
 {
     assert(m_size < m_capacity);
 
+    if (m_size < m_capacity)
+    {
+        return nullptr;
+    }
+
     CommandPacket packet = commandPacket::Create<U>(auxMemorySize);
 
     // store key and pointer to the data
@@ -136,17 +141,16 @@ U * CommandBucket<Key>::AddCommand(Key key, size_t auxMemorySize)
     return commandPacket::GetCommand<U>(packet);
 }
 
-template <typename U, typename V>
-U * AppendCommand(V * last_command, size_t auxMemorySize)
+template <typename Key>
+size_t CommandBucket<Key>::size()
 {
-    CommandPacket packet = commandPacket::Create<U>(auxMemorySize);
+    return m_size;
+}
 
-    commandPacket::StoreNextCommandPacket<V>(last_command, packet);
-
-    commandPacket::StoreNextCommandPacket(packet, nullptr);
-    commandPacket::StoreBackendDispatchFunction(packet, U::DISPATCH_FUNCTION);
-
-    return commandPacket::GetCommand<U>(packet);
+template <typename Key>
+size_t CommandBucket<Key>::capacity()
+{
+    return m_capacity;
 }
 
 template <typename Key>

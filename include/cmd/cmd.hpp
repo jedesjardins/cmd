@@ -82,8 +82,8 @@ public:
 	template <typename U>
 	U* AddCommand(Key key, size_t auxMemorySize);
 
-	template <typename U, typename V>
-	U* AppendCommand(V* last_command, size_t auxMemorySize);
+	size_t size();
+	size_t capacity();
 
 private:
 
